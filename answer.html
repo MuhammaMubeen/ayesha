@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meri Shehzadi – Quiz of Love 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffb6c1,#ffc1cc,#ffd1dc);
+  color:white;
+  text-align:center;
+  padding:40px 20px;
+  overflow-x: hidden;  /* horizontal scroll hidden */
+  overflow-y: auto;    /* vertical scroll allowed */
+  position:relative;
+}
+
+  h1{
+    font-family:'Dancing Script',cursive;
+    font-size:3rem;
+    margin-bottom:30px;
+    text-shadow:0 0 20px rgba(255,255,255,0.7);
+  }
+  .question-box{
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(6px);
+    border-radius:20px;
+    padding:20px;
+    margin:15px auto;
+    width:85%;
+    max-width:700px;
+    font-size:1.1rem;
+    color:#fff;
+    box-shadow:0 0 15px rgba(255,255,255,0.3);
+  }
+  input{
+    margin-top:10px;
+    padding:8px 12px;
+    border:none;
+    border-radius:10px;
+    font-size:1rem;
+    text-align:center;
+  }
+  button{
+    background:#ff5c8d;
+    color:white;
+    border:none;
+    border-radius:15px;
+    padding:12px 30px;
+    font-size:1.1rem;
+    margin-top:25px;
+    cursor:pointer;
+    transition:0.3s;
+  }
+  button:hover{background:#ff3366;transform:scale(1.05);}
+  .incorrect{color:yellow;font-size:0.9rem;margin-top:5px;}
+  
+  /* Floating Hearts */
+ .heart {
+    position: fixed;
+    bottom: 0;  
+    font-size: 24px;
+    animation: rise linear forwards;
+    pointer-events: none;
+  }
+
+  @keyframes rise {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-30vh); /* double the distance (was ~100vh) */
+      opacity: 0;
+    }
+  }
+
+  /* Full-screen Congratulations Popup */
+  .popup {
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(255,182,193,0.95);
+    color:#fff;
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    z-index:10;
+    animation:fadeIn 1.5s ease-in;
+  }
+  .popup h2{
+    font-family:'Dancing Script',cursive;
+    font-size:3.5rem;
+    text-shadow:0 0 20px white;
+    margin-bottom:20px;
+  }
+  .popup p{
+    font-size:1.3rem;
+    max-width:600px;
+    margin:10px auto;
+    color:white;
+  }
+  .popup button{
+    margin-top:30px;
+    background:#ff4f81;
+    padding:12px 35px;
+    font-size:1.1rem;
+    border-radius:20px;
+  }
+  @keyframes fadeIn {
+    from{opacity:0;}
+    to{opacity:1;}
+  }
+</style>
+</head>
+<body>
+  <h1>💞 Meri Shehzadi – Love Quiz 💞</h1>
+
+  <div id="questions"></div>
+
+  <button id="submitBtn">Submit Answers</button>
+
+  <div class="popup" id="popup">
+    <h2>🎉 Congratulations My Shehzadi! 💖</h2>
+    <p>Tumne har sawaal ka jawab “Yes” se diya...  
+    Jaise mere dil ka har jawab sirf tum ho 💕  
+   Ab apko diye jaty hien 4 gift continue to get your surprise</p>
+    <button onclick="window.location.href='index4.html'">Continue ➜</button>
+  </div>
+
+  <!-- Floating Hearts -->
+  <script>
+    function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (10 + Math.random() * 8) + "s"; // slower, travels longer
+    document.body.appendChild(heart);
+
+    // Remove after full animation
+    setTimeout(() => heart.remove(), 12000); // stays longer before disappearing
+  }
+
+  // Increased frequency (more hearts)
+  setInterval(createHeart, 300); // was 600 → now twice as many
+
+    const questionsList = [
+      "Ayesha duniya ki sab se haseen larki?",
+      "Ayesha ky jesa koi nahi or han jo hy vo uski washroom ki chappal jesa hy bass?",
+      "Ap ki muskurahat se chand or sitaron ky ghar chalty hien?",
+      "Khushboan mien sab se haseen khushbooo hy apky pasiny ki mehk na ky Phoolon ki mehk ?",
+      "Subha ho ya raat ap ho sab se la jawab kiun ky ap ho subha ki roshni or raat ki chandni?",
+      "Batien karty ho to lagta hy mon se phool jharty hien kiya tum Phoolon ka bhagh ho?",
+      "Samadar ho ya asman sab ky sab fake hien asal mien haseeen ap ho bacha?",
+      "Dil ki bazt karty ho Dil ki dharkanien ho ap samjhi dharkanien hein to dil hy or mien zinda hon?",
+      "Ap ky agy sara jahn qurban kiun ky ap ayesha ho mubeen ki ap ky jesa koi nahi ap itni haseeen ho ?",
+      "14 vien ka chancd ho jab vo roshan hota hy to sara jahan raat ky andhery mien roshan hota hy or vo chand ap ki wajah se mi9kalta hy?"
+    ];
+
+    const container = document.getElementById('questions');
+    questionsList.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question-box';
+      div.innerHTML = `<p>${i+1}. ${q}</p>
+        <input type="text" id="q${i}" placeholder="Type Yes only">
+        <div id="error${i}" class="incorrect"></div>`;
+      container.appendChild(div);
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', () => {
+  let correct = 0;
+
+  // Question 1
+  const ans0 = document.getElementById('q0').value.trim().toLowerCase();
+  const error0 = document.getElementById('error0');
+  if(ans0 === 'yes'){
+    correct++;
+    error0.textContent = '';
+  } else {
+    error0.textContent = 'Incorrect!';
+  }
+
+  // Question 2
+  const ans1 = document.getElementById('q1').value.trim().toLowerCase();
+  const error1 = document.getElementById('error1');
+  if(ans1 === 'yes'){
+    correct++;
+    error1.textContent = '';
+  } else {
+    error1.textContent = 'Incorrect!';
+  }
+
+  // Question 3
+  const ans2 = document.getElementById('q2').value.trim().toLowerCase();
+  const error2 = document.getElementById('error2');
+  if(ans2 === 'yes'){
+    correct++;
+    error2.textContent = '';
+  } else {
+    error2.textContent = 'Incorrect!';
+  }
+
+  // Question 4
+  const ans3 = document.getElementById('q3').value.trim().toLowerCase();
+  const error3 = document.getElementById('error3');
+  if(ans3 === 'yes'){
+    correct++;
+    error3.textContent = '';
+  } else {
+    error3.textContent = 'Incorrect!';
+  }
+
+  // Question 5
+  const ans4 = document.getElementById('q4').value.trim().toLowerCase();
+  const error4 = document.getElementById('error4');
+  if(ans4 === 'yes'){
+    correct++;
+    error4.textContent = '';
+  } else {
+    error4.textContent = 'Incorrect!';
+  }
+
+  // Question 6
+  const ans5 = document.getElementById('q5').value.trim().toLowerCase();
+  const error5 = document.getElementById('error5');
+  if(ans5 === 'yes'){
+    correct++;
+    error5.textContent = '';
+  } else {
+    error5.textContent = 'Incorrect!';
+  }
+
+  // Question 7
+  const ans6 = document.getElementById('q6').value.trim().toLowerCase();
+  const error6 = document.getElementById('error6');
+  if(ans6 === 'yes'){
+    correct++;
+    error6.textContent = '';
+  } else {
+    error6.textContent = 'Incorrect!';
+  }
+
+  // Question 8
+  const ans7 = document.getElementById('q7').value.trim().toLowerCase();
+  const error7 = document.getElementById('error7');
+  if(ans7 === 'yes'){
+    correct++;
+    error7.textContent = '';
+  } else {
+    error7.textContent = 'Incorrect!';
+  }
+
+  // Question 9
+  const ans8 = document.getElementById('q8').value.trim().toLowerCase();
+  const error8 = document.getElementById('error8');
+  if(ans8 === 'yes'){
+    correct++;
+    error8.textContent = '';
+  } else {
+    error8.textContent = 'Incorrect!';
+  }
+
+  // Question 10
+  const ans9 = document.getElementById('q9').value.trim().toLowerCase();
+  const error9 = document.getElementById('error9');
+  if(ans9 === 'yes'){
+    correct++;
+    error9.textContent = '';
+  } else {
+    error9.textContent = 'Incorrect!';
+  }
+
+  // Show congratulations if all correct
+  if(correct === 10){
+    document.getElementById('popup').style.display='flex';
+  }
+});
+
+  </script>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/06/09/audio_1b2e6e2e1b.mp3?filename=romantic-piano-background-146193.mp3" type="audio/mp3">
+  </audio>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meri Shehzadi – Romantic Poetry</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@500&display=swap" rel="stylesheet">
+<style>
+  * {margin:0; padding:0; box-sizing:border-box;}
+  body {
+    background: linear-gradient(135deg, #fcbad3, #ff9a9e, #fad0c4);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.2rem;
+    margin-bottom: 40px;
+    text-shadow: 0 0 20px rgba(255,255,255,0.7);
+  }
+
+  .poetry-box {
+    background: linear-gradient(180deg,#ffd6e8,#ffeaf3,#fff8fb);
+    backdrop-filter: blur(8px);
+    border-radius: 25px;
+    padding: 25px;
+    margin: 20px auto;
+    width: 85%;
+    font-size:20px;
+    color:#333;
+    max-width: 700px;
+    box-shadow: 0 0 25px rgba(255,255,255,0.3);
+    animation: fadeIn 2s ease-in;
+    transition: 0.3s;
+  }
+
+  .poetry-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(255,255,255,0.6);
+  }
+
+  .poetry-box p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  @keyframes fadeIn {
+    from {opacity:0; transform:translateY(40px);}
+    to {opacity:1; transform:translateY(0);}
+  }
+
+  /* Floating Hearts */
+  .heart {
+    position: fixed;
+    bottom: 0;
+    font-size: 24px;
+    animation: rise linear forwards;
+    pointer-events: none;
+  }
+
+  @keyframes rise {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-30vh);
+      opacity: 0;
+    }
+  }
+
+  /* Continue Button */
+  #continueBtn {
+    display: none;
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff6fa1;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255,255,255,0.6);
+    transition: 0.3s;
+  }
+
+  #continueBtn:hover {
+    background: #ff4f91;
+    transform: translateX(-50%) scale(1.05);
+  }
+</style>
+</head>
+<body>
+  <h1>💞 Meri Shehzadi Ke Naam 💞</h1>
+
+  <div class="poetry-box"><p>1. mujhe acha lagta hy tumhara mujhe per haq jatana,<br>ap ky hony se lagta hy zinda hon mien yar .</p></div>
+  <div class="poetry-box"><p>2. Meri aam si zindagi moen bohot khas ho tum ,<br>Jesy raat ky liye chand zaruri hy or jesy chand ky liye asman ka hona .</p></div>
+  <div class="poetry-box"><p>3. Jab Ap dekhti hai nazar bhar ke mujhe,<br>Lagta hai dua meri asar kar gayi tujhe.</p></div>
+  <div class="poetry-box"><p>4. Ap ky saath guzre har pal mein sukoon hai milta,<br>Ap ky bina mien esy jesy samandar ho pani ky bina.</p></div>
+  <div class="poetry-box"><p>5. Har raat khwabon mein Ap ka hi chehra Nazar aata hai,<br>Jesy mujhe khwab mien jannat ka anna or zindagi ki wajha ban janna.</p></div>
+  <div class="poetry-box"><p>6. Allah ne sab kuch diya mujhe ,<br>Kiun ky ap mily mujhe to har khushi har tamana har hajat hooyi puri meri.</p></div>
+  <div class="poetry-box"><p>7. Tu meri dhadkanon ka ghehra raaz hai,<br>Meri sari zindagi mien ap ka ka hona Mery zinga hony ka raaz ka hy .</p></div>
+  <div class="poetry-box"><p>8. Tere bina sab kuch adhura lagta hai har rang be rang lagta hy ,<br>Tu hai to kala rang kia zindagi bhi rangien lagti hai.</p></div>
+  <div class="poetry-box"><p>9. Tere naam se meri har subah hoti hai,<br>Har raat teri baton se mehkti rehti hai.</p></div>
+  <div class="poetry-box"><p>10. Tu meri duaon ka sabse khoobsurat jawab hai,<br>Meri duniya ka sabse haseen Insan hai jis se mujhe pyar hy pyar hy.</p></div>
+
+  <!-- Continue Button -->
+  <button id="continueBtn" onclick="window.location.href='answer.html'">Continue 💖</button>
+
+
+  <!-- Floating Hearts -->
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (10 + Math.random() * 8) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 12000);
+    }
+
+    setInterval(createHeart, 300);
+
+    // Show Continue Button after 5 seconds of scrolling
+    let scrollDetected = false;
+    let timerStarted = false;
+
+    window.addEventListener('scroll', () => {
+      if (!timerStarted) {
+        timerStarted = true;
+        setTimeout(() => {
+          document.getElementById('continueBtn').style.display = 'block';
+        }, 5000); // 5 seconds delay after scrolling
+      }
+    });
+  </script>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/06/09/audio_1b2e6e2e1b.mp3?filename=romantic-piano-background-146193.mp3" type="audio/mp3">
+  </audio>
+</body>
+</html>

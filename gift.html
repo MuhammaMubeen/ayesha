@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise Gift 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(160deg,#ffe6f0,#ffd6e8,#fff0f5);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  min-height:100vh;
+  padding:30px 20px;
+  overflow-x:hidden;
+  text-align:center;
+  color:#333;
+}
+h1{
+  font-family:'Dancing Script',cursive;
+  font-size:2.8rem;
+  margin-bottom:10px;
+  color:#ff4f81;
+  text-shadow:0 0 25px #ffb6c1;
+}
+p{
+  font-size:1.1rem;
+  margin-bottom:30px;
+  color:#555;
+}
+
+/* Boxes Grid */
+.boxes{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:25px;
+  width:100%;
+  max-width:400px;
+  justify-items:center;
+  position:relative;
+  z-index:2;
+}
+
+/* Gift Box Design */
+.box{
+  width:100%;
+  max-width:160px;
+  aspect-ratio:1/1;
+  perspective:1000px;
+  cursor:pointer;
+  position:relative;
+  z-index:3;
+}
+.box-inner{
+  position:absolute;
+  width:100%;
+  height:100%;
+  transition:transform 0.8s ease;
+  transform-style:preserve-3d;
+  top:0;
+  left:0;
+}
+.box.open .box-inner{
+  transform:rotateY(180deg);
+}
+.box-front,.box-back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  backface-visibility:hidden;
+  box-shadow:0 0 20px rgba(255,105,180,0.5);
+  top:0;
+  left:0;
+}
+
+/* Front Design */
+.box-front{
+  background:linear-gradient(145deg,#ff99c8,#ff66a3);
+  color:white;
+  font-size:1.5rem;
+  font-weight:bold;
+  position:relative;
+}
+.box-front::before,.box-front::after{
+  content:"";
+  position:absolute;
+  background:#ff3366;
+  z-index:2;
+}
+.box-front::before{
+  width:20px;height:100%;left:50%;top:0;transform:translateX(-50%);
+}
+.box-front::after{
+  width:100%;height:20px;top:50%;left:0;transform:translateY(-50%);
+}
+.box-front span{
+  position:absolute;
+  top:-12px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:1.8rem;
+}
+
+/* Back of the Box */
+.box-back{
+  background:linear-gradient(145deg,#fff0f5,#ffd6e8);
+  transform:rotateY(180deg);
+  color:#ff4f81;
+  font-family:'Dancing Script',cursive;
+  font-size:1.3rem;
+  font-weight:bold;
+  padding:10px;
+  text-align:center;
+}
+
+/* Popup Card */
+.cardPopup{
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  background:linear-gradient(145deg,#fff0f5,#ffe6f0);
+  backdrop-filter:blur(10px);
+  padding:25px 35px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(255,105,180,0.5);
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  z-index:10;
+  text-align:center;
+  animation:fadeInCard 0.4s ease-out;
+}
+.cardPopup h2{
+  font-family:'Dancing Script',cursive;
+  font-size:2rem;
+  margin-bottom:8px;
+  color:#ff4f81;
+}
+.cardPopup p{
+  font-size:1.1rem;
+  color:#333;
+}
+@keyframes fadeInCard{
+  from{opacity:0;transform:translate(-50%,-60%) scale(0.9);}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1);}
+}
+
+/* Continue Button */
+.continueBtn{
+  display:none;
+  padding:12px 35px;
+  font-size:1.1rem;
+  border-radius:25px;
+  border:none;
+  background:#ff4f81;
+  color:white;
+  cursor:pointer;
+  margin-top:25px;
+  transition:0.3s;
+  box-shadow:0 0 20px rgba(255,105,180,0.6);
+  position:relative;
+  z-index:15;
+}
+.continueBtn:hover{
+  transform:scale(1.05);
+  background:#ff3366;
+}
+
+/* Floating Hearts */
+ .heart {
+    position: fixed;
+    bottom: 0;
+    font-size: 24px;
+    animation: rise linear forwards;
+    pointer-events: none;
+  }
+
+  @keyframes rise {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-30vh); /* double the distance (was ~100vh) */
+      opacity: 0;
+    }
+  }
+
+/* Blast Animation */
+.blast{
+  position:fixed;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  background:radial-gradient(circle,#ffe0f5 0%,#ffb6d9 80%);
+  opacity:0.8;
+  animation:blastAnim 0.5s forwards;
+  z-index:9;
+}
+@keyframes blastAnim{
+  0%{transform:scale(0);opacity:1;}
+  100%{transform:scale(2);opacity:0;}
+}
+
+/* Responsive */
+@media(max-width:500px){
+  h1{font-size:2.3rem;}
+  p{font-size:1rem;}
+  .box{max-width:130px;}
+}
+</style>
+</head>
+<body>
+<h1>🎁 Ready to Win?</h1>
+<p>Tap a box to reveal your surprise gift 💝</p>
+
+<div class="boxes">
+  <div class="box" data-text="Aik phooool">
+    <div class="box-inner">
+      <div class="box-front"><span>💟</span>1</div>
+      <div class="box-back"></div>
+    </div>
+  </div>
+  <div class="box" data-text="Confress my love in words">
+    <div class="box-inner">
+      <div class="box-front"><span>💟</span>2</div>
+      <div class="box-back"></div>
+    </div>
+  </div>
+  <div class="box" data-text="Biryani ">
+    <div class="box-inner">
+      <div class="box-front"><span>💟</span>3</div>
+      <div class="box-back"></div>
+    </div>
+  </div>
+  <div class="box" data-text="Chocolate shake">
+    <div class="box-inner">
+      <div class="box-front"><span>💟</span>4</div>
+      <div class="box-back"></div>
+    </div>
+  </div>
+</div>
+
+<div class="cardPopup" id="cardPopup">
+  <h2>🎉 You Won! 💖</h2>
+  <p id="giftMsg">Your gift...</p>
+</div>
+
+<button class="continueBtn" id="continueBtn" onclick="window.location.href='final.html'">Continue ➜</button>
+
+<script>
+function createHeart(){
+  const heart=document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML="💗";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(6+Math.random()*4)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),8000);
+}
+setInterval(createHeart,500);
+
+const boxes=document.querySelectorAll('.box');
+const cardPopup=document.getElementById('cardPopup');
+const giftMsg=document.getElementById('giftMsg');
+const continueBtn=document.getElementById('continueBtn');
+let openedCount=0;
+
+boxes.forEach(box=>{
+  const back=box.querySelector('.box-back');
+  const inner=box.querySelector('.box-inner');
+  box.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    if(box.classList.contains('open')) return;
+    box.classList.add('open');
+    back.textContent=box.dataset.text;
+
+    // Blast animation
+    const rect=box.getBoundingClientRect();
+    const blast=document.createElement('div');
+    blast.className='blast';
+    blast.style.left=(rect.left+rect.width/2-70)+'px';
+    blast.style.top=(rect.top+rect.height/2-70)+'px';
+    document.body.appendChild(blast);
+    setTimeout(()=>blast.remove(),600);
+
+    // Show popup
+    giftMsg.textContent=`Your gift: ${box.dataset.text} 💝`;
+    cardPopup.style.display='flex';
+
+    openedCount++;
+    if(openedCount===boxes.length){
+      continueBtn.style.display='inline-block';
+    }
+  });
+});
+
+// Close popup when clicking outside
+document.addEventListener('click',(e)=>{
+  if(!e.target.closest('.box')){
+    cardPopup.style.display='none';
+  }
+});
+</script>
+</body>
+</html>
